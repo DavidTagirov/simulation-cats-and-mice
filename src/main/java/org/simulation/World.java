@@ -17,33 +17,71 @@ public class World {
         entities.put(coordinates, entity);
     }
 
-    public void setupRandomPositions(int x, int y) {
+    public void generate(int x, int y) {
         Random random = new Random();
+        Coordinates coordinates;
         this.x = x;
         this.y = y;
 
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                int nextInt = random.nextInt(100);
+                coordinates = new Coordinates(i, j);
 
-                if (nextInt == 0) {
-                    setEntities(new Coordinates(i, j), Predator.builder()
-                            .strange(50)
-                            .speed(2)
-                            .health(100)
-                            .build());
-                } else if (nextInt == 1) {
-                    setEntities(new Coordinates(i, j), Herbivore.builder()
+                int nextInt = random.nextInt(100);
+                if (nextInt <= 10) {
+                    setEntities(coordinates, Cheese.builder().build());
+                } else if (nextInt <= 20) {
+                    setEntities(coordinates, Herbivore.builder()
                             .speed(1)
                             .health(100)
                             .build());
-                } else if (nextInt <= 12) {
-                    setEntities(new Coordinates(i, j), Cheese.builder().build());
+                } else if (nextInt <= 30) {
+                    setEntities(coordinates, Predator.builder()
+                            .speed(2)
+                            .health(100)
+                            .strange(50)
+                            //.world
+                            .build());
                 } else if (nextInt <= 40) {
-                    setEntities(new Coordinates(i, j), Barrier.builder().build());
+                    setEntities(coordinates, Barrier.builder().build());
                 } else {
-                    setEntities(new Coordinates(i, j), Floor.builder().build());
+                    setEntities(coordinates, Floor.builder().build());
                 }
+            }
+        }
+    }
+
+    public void testGenerate(int x, int y) {
+        Random random = new Random();
+        Coordinates coordinates;
+        this.x = x;
+        this.y = y;
+
+        setEntities(new Coordinates(7, 7), Herbivore.builder()
+                .speed(1)
+                .health(100)
+                //.world(this)
+                .build());
+
+        setEntities(new Coordinates(0, 0), Cheese.builder().build());
+        setEntities(new Coordinates(9, 9), Cheese.builder().build());
+
+        setEntities(new Coordinates(3, 5), Barrier.builder().build());
+        setEntities(new Coordinates(4, 5), Barrier.builder().build());
+        setEntities(new Coordinates(5, 5), Barrier.builder().build());
+        setEntities(new Coordinates(6, 5), Barrier.builder().build());
+        setEntities(new Coordinates(7, 5), Barrier.builder().build());
+
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                coordinates = new Coordinates(i, j);
+
+                if ((i == 0 && j == 0) || (i == 7 && j == 7) || (i == 9 && j == 9)
+                        || (i == 3 && j == 5) || (i == 4 && j == 5) || (i == 5 && j == 5) || (i == 6 && j == 5) || (i == 7 && j == 5))
+                    continue;
+
+                setEntities(coordinates, Floor.builder().build());
+
             }
         }
     }

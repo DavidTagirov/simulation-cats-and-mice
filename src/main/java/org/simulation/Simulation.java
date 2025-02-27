@@ -2,15 +2,20 @@ package org.simulation;
 
 public class Simulation {
 
-    public void start(){
+    public void start() throws InterruptedException {
         World world = new World();
-        world.setupRandomPositions(3, 10);
+        //world.generate(10, 10);
+        world.testGenerate(10, 10);
 
-        Renderer renderer = new Renderer();
-        renderer.createVisual(world);
+        Renderer renderer = new Renderer(world);
+        renderer.createVisual();
 
-        System.out.println(world.getEntities());
-        System.out.println(world.getEntities().size());
+        Action action = new Action(world);
 
+        while (true) {
+            //Thread.sleep(1000);
+            action.turnAction(renderer);
+            //renderer.repaint();
+        }
     }
 }
