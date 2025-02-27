@@ -1,15 +1,17 @@
 package org.simulation.entities;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.simulation.World;
 
-@SuperBuilder
 @Getter
+@SuperBuilder
 public abstract class Creature extends Entity {
     protected Integer speed;
     protected Integer health;
 
     abstract public void hunting(World world);
-    //abstract protected void makeMove(int speedX, int speedY);
+
+    abstract protected void makeMove(World world, int speedX, int speedY);
 }

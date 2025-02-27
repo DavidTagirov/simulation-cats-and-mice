@@ -12,6 +12,7 @@ import java.util.Random;
 public class Renderer extends JPanel {
     private final World world;
     private final Map<String, BufferedImage> emojiMap = new HashMap<>();
+    private int counter;
 
     public Renderer(World world) {
         this.world = world;
@@ -72,7 +73,8 @@ public class Renderer extends JPanel {
     }
 
     private BufferedImage randomBarrierIcon() {
-        return switch (new Random().nextInt(3)) {
+
+        return switch (counter++ % 3) {
             case 0 -> emojiMap.get("Barrier1");
             case 1 -> emojiMap.get("Barrier2");
             default -> emojiMap.get("Barrier3");

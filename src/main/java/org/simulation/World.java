@@ -40,7 +40,6 @@ public class World {
                             .speed(2)
                             .health(100)
                             .strange(50)
-                            //.world
                             .build());
                 } else if (nextInt <= 40) {
                     setEntities(coordinates, Barrier.builder().build());
@@ -57,18 +56,24 @@ public class World {
         this.x = x;
         this.y = y;
 
-        setEntities(new Coordinates(7, 7), Herbivore.builder()
+        setEntities(new Coordinates(5, 5), Predator.builder()
                 .speed(1)
                 .health(100)
-                //.world(this)
+                .strange(50)
                 .build());
 
-        setEntities(new Coordinates(0, 0), Cheese.builder().build());
-        setEntities(new Coordinates(9, 9), Cheese.builder().build());
+        setEntities(new Coordinates(0, 0), Herbivore.builder()
+                .speed(1)
+                .health(100)
+                .build());
+        setEntities(new Coordinates(9, 9), Herbivore.builder()
+                .speed(1)
+                .health(100)
+                .build());
 
-        setEntities(new Coordinates(3, 5), Barrier.builder().build());
+        setEntities(new Coordinates(3, 5), Cheese.builder().build());
         setEntities(new Coordinates(4, 5), Barrier.builder().build());
-        setEntities(new Coordinates(5, 5), Barrier.builder().build());
+        setEntities(new Coordinates(7, 7), Cheese.builder().build());
         setEntities(new Coordinates(6, 5), Barrier.builder().build());
         setEntities(new Coordinates(7, 5), Barrier.builder().build());
 

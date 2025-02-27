@@ -10,12 +10,10 @@ public class Simulation {
         Renderer renderer = new Renderer(world);
         renderer.createVisual();
 
-        Action action = new Action(world);
+        Action action = new Action();
 
         while (true) {
-            //Thread.sleep(1000);
-            action.turnAction(renderer);
-            //renderer.repaint();
+            action.turnAction(world, renderer);
         }
     }
 }
