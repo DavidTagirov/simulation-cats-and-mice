@@ -7,16 +7,17 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class Renderer extends JPanel {
     private final World world;
     private final Map<String, BufferedImage> emojiMap = new HashMap<>();
-    private int counter;
+    private final Map<Coordinates, BufferedImage> barrierIcons = new HashMap<>(); // Запоминаем иконки барьеров
+    private int moveCount = 0;
 
     public Renderer(World world) {
         this.world = world;
         loadEmojis();
+        cacheBarriers();
     }
 
     private void loadEmojis() {
@@ -41,7 +42,7 @@ public class Renderer extends JPanel {
     public void createVisual() {
         JFrame frame = new JFrame("Симуляция 'Кошки-Мышки'");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(670, 700);
+        frame.setSize(670, 750);
         frame.add(this);
         frame.setVisible(true);
         setBackground(new Color(168, 228, 160));
@@ -54,13 +55,14 @@ public class Renderer extends JPanel {
 
         for (int i = 0; i < world.getX(); i++) {
             for (int j = 0; j < world.getY(); j++) {
-                String nameOfEntity = world.getEntities().get(new Coordinates(i, j)).getClass().getSimpleName();
+                Coordinates coords = new Coordinates(i, j);
+                String nameOfEntity = world.getEntities().get(coords).getClass().getSimpleName();
 
                 BufferedImage emoji = switch (nameOfEntity) {
                     case "Predator" -> emojiMap.get("Predator");
                     case "Herbivore" -> emojiMap.get("Herbivore");
                     case "Cheese" -> emojiMap.get("Cheese");
-                    case "Barrier" -> randomBarrierIcon();
+                    case "Barrier" -> barrierIcons.getOrDefault(coords, emojiMap.get("Barrier1"));
                     case "Floor" -> emojiMap.get("Floor");
                     default -> null;
                 };
@@ -70,14 +72,34 @@ public class Renderer extends JPanel {
                 }
             }
         }
+
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Ход: " + moveCount, 20, world.getX() * cellSize + 40);
+    }
+
+    private void cacheBarriers() {
+        for (int i = 0; i < world.getX(); i++) {
+            for (int j = 0; j < world.getY(); j++) {
+                Coordinates coords = new Coordinates(i, j);
+                if (world.getEntities().get(coords).getClass().getSimpleName().equals("Barrier")) {
+                    barrierIcons.put(coords, randomBarrierIcon());
+                }
+            }
+        }
     }
 
     private BufferedImage randomBarrierIcon() {
-
-        return switch (counter++ % 3) {
+        int randomIndex = (int) (Math.random() * 3);
+        return switch (randomIndex) {
             case 0 -> emojiMap.get("Barrier1");
             case 1 -> emojiMap.get("Barrier2");
             default -> emojiMap.get("Barrier3");
         };
+    }
+
+    public void incrementMoveCount() {
+        moveCount++;
+        repaint();
     }
 }

@@ -90,4 +90,55 @@ public class World {
             }
         }
     }
+
+    public void testGenerate2(int x, int y) {
+        Random random = new Random();
+        Coordinates coordinates;
+        this.x = x;
+        this.y = y;
+
+        setEntities(new Coordinates(7, 7), Predator.builder()
+                .speed(1)
+                .health(100)
+                .strange(50)
+                .build());
+
+        setEntities(new Coordinates(0, 0), Herbivore.builder()
+                .speed(1)
+                .health(100)
+                .build());
+        setEntities(new Coordinates(4, 3), Cheese.builder().build());
+
+        setEntities(new Coordinates(3, 5), Barrier.builder().build());
+        setEntities(new Coordinates(4, 5), Barrier.builder().build());
+        setEntities(new Coordinates(5, 5), Barrier.builder().build());
+        setEntities(new Coordinates(6, 5), Barrier.builder().build());
+        setEntities(new Coordinates(7, 5), Barrier.builder().build());
+
+        setEntities(new Coordinates(3, 4), Barrier.builder().build());
+        setEntities(new Coordinates(3, 3), Barrier.builder().build());
+        setEntities(new Coordinates(3, 2), Barrier.builder().build());
+
+        setEntities(new Coordinates(6, 2), Barrier.builder().build());
+        setEntities(new Coordinates(4, 2), Barrier.builder().build());
+        setEntities(new Coordinates(5, 2), Barrier.builder().build());
+
+        setEntities(new Coordinates(5, 3), Barrier.builder().build());
+
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                coordinates = new Coordinates(i, j);
+
+                if ((i == 0 && j == 0) || (i == 7 && j == 7) || (i == 4 && j == 3)
+                        || (i == 3 && j == 5) || (i == 4 && j == 5) || (i == 5 && j == 5) || (i == 6 && j == 5) || (i == 7 && j == 5)
+                        || (i == 3 && j == 4) || (i == 3 && j == 3) || (i == 3 && j == 2)
+                        || (i == 6 && j == 2) || (i == 4 && j == 2) || (i == 5 && j == 2)
+                        || (i == 5 && j == 3))
+                    continue;
+
+                setEntities(coordinates, Floor.builder().build());
+
+            }
+        }
+    }
 }

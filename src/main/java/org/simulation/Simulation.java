@@ -4,8 +4,9 @@ public class Simulation {
 
     public void start() throws InterruptedException {
         World world = new World();
-        //world.generate(10, 10);
-        world.testGenerate(10, 10);
+        world.generate(10, 10);
+        //world.testGenerate(10, 10);
+        //world.testGenerate2(10, 10);
 
         Renderer renderer = new Renderer(world);
         renderer.createVisual();
@@ -13,7 +14,9 @@ public class Simulation {
         Action action = new Action();
 
         while (true) {
+            Thread.sleep(800);
             action.turnAction(world, renderer);
+            renderer.incrementMoveCount();
         }
     }
 }

@@ -3,6 +3,7 @@ package org.simulation.entities;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.simulation.Coordinates;
 import org.simulation.World;
 
 @Getter
@@ -13,5 +14,5 @@ public abstract class Creature extends Entity {
 
     abstract public void hunting(World world);
 
-    abstract protected void makeMove(World world, int speedX, int speedY);
+    abstract protected void makeMove(World world, Coordinates newPosition);
 }
