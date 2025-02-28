@@ -98,8 +98,8 @@ public class Renderer extends JPanel {
         };
     }
 
-    public void incrementMoveCount() {
-        moveCount++;
+    public void incrementMoveCount(int count) {
+        moveCount = count;
         repaint();
     }
 }

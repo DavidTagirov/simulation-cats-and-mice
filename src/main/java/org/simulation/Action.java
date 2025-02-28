@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Data
 public class Action {
 
-    public void turnAction(World world, Renderer renderer) throws InterruptedException {
+    public void turnAction(World world) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
         List<Runnable> tasks = new ArrayList<>();
@@ -22,8 +22,7 @@ public class Action {
                 Coordinates coordinates = new Coordinates(i, j);
                 var entity = world.getEntities().get(coordinates);
 
-                if (entity instanceof Creature) {
-                    Creature creature = (Creature) entity;
+                if (entity instanceof Creature creature) {
                     tasks.add(() -> {
                         synchronized (world) {
                             creature.hunting(world);
@@ -33,15 +32,11 @@ public class Action {
             }
         }
 
-        // Выполняем все задачи одновременно
         for (Runnable task : tasks) {
             executorService.submit(task);
         }
 
         executorService.shutdown();
         executorService.awaitTermination(1, TimeUnit.SECONDS);
-
-        // Обновляем отображение после завершения всех ходов
-        renderer.incrementMoveCount();
     }
 }

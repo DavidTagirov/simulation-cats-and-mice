@@ -27,21 +27,21 @@ public class World {
             for (int j = 0; j < y; j++) {
                 coordinates = new Coordinates(i, j);
 
-                int nextInt = random.nextInt(100);
-                if (nextInt <= 10) {
+                int randomNumber = random.nextInt(100);
+                if (randomNumber <= 3) {
                     setEntities(coordinates, Cheese.builder().build());
-                } else if (nextInt <= 20) {
+                } else if (randomNumber <= 6) {
                     setEntities(coordinates, Herbivore.builder()
                             .speed(1)
                             .health(100)
                             .build());
-                } else if (nextInt <= 30) {
+                } else if (randomNumber <= 9) {
                     setEntities(coordinates, Predator.builder()
                             .speed(2)
                             .health(100)
                             .strange(50)
                             .build());
-                } else if (nextInt <= 40) {
+                } else if (randomNumber <= 19) {
                     setEntities(coordinates, Barrier.builder().build());
                 } else {
                     setEntities(coordinates, Floor.builder().build());
@@ -138,6 +138,33 @@ public class World {
 
                 setEntities(coordinates, Floor.builder().build());
 
+            }
+        }
+    }
+
+    public void update() {
+        Random random = new Random();
+        Coordinates coordinates;
+
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                coordinates = new Coordinates(i, j);
+
+                int randomNumber = random.nextInt(100);
+                if (getEntities().get(coordinates) instanceof Floor && randomNumber <= 3) {
+                    setEntities(coordinates, Cheese.builder().build());
+                } else if (getEntities().get(coordinates) instanceof Floor && randomNumber <= 6) {
+                    setEntities(coordinates, Herbivore.builder()
+                            .speed(1)
+                            .health(100)
+                            .build());
+                } else if (getEntities().get(coordinates) instanceof Floor && randomNumber <= 8) {
+                    setEntities(coordinates, Predator.builder()
+                            .speed(1)
+                            .health(100)
+                            .strange(50)
+                            .build());
+                }
             }
         }
     }

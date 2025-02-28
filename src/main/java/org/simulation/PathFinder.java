@@ -2,7 +2,7 @@ package org.simulation;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.simulation.entities.Creature;
+import org.simulation.entities.*;
 
 import java.util.*;
 
@@ -35,7 +35,7 @@ public class PathFinder {
         int minDistance = Integer.MAX_VALUE;
 
         for (Coordinates target : targets) {
-            List<Coordinates> path = findPath(start, target);
+            List<Coordinates> path = findPath(start, target, creature);
 
             if (!path.isEmpty() && path.size() < minDistance) {
                 minDistance = path.size();
@@ -46,7 +46,7 @@ public class PathFinder {
         return nearest;
     }
 
-    public List<Coordinates> findPath(Coordinates start, Coordinates goal) {
+    public List<Coordinates> findPath(Coordinates start, Coordinates goal, Creature creature) {
         Queue<List<Coordinates>> queue = new LinkedList<>();
         Set<Coordinates> visited = new HashSet<>();
 
@@ -66,7 +66,7 @@ public class PathFinder {
             for (int[] dir : directions) {
                 Coordinates next = new Coordinates(current.x() + dir[0], current.y() + dir[1]);
 
-                if (isWalkable(next) && !visited.contains(next)) {
+                if (isWalkable(next, creature) && !visited.contains(next)) {
                     visited.add(next);
                     List<Coordinates> newPath = new ArrayList<>(path);
                     newPath.add(next);
@@ -78,12 +78,19 @@ public class PathFinder {
         return Collections.emptyList();
     }
 
-    private boolean isWalkable(Coordinates coord) {
-        if (coord.x() < 0 || coord.y() < 0 || coord.x() >= world.getX() || coord.y() >= world.getY()) {
+    private boolean isWalkable(Coordinates coordinates, Creature creature) {
+        if (coordinates.x() < 0 || coordinates.y() < 0 || coordinates.x() >= world.getX() || coordinates.y() >= world.getY()) {
             return false;
         }
 
-        var entity = world.getEntities().get(coord);
-        return !(entity instanceof org.simulation.entities.Barrier);
+        var entity = world.getEntities().get(coordinates);
+
+        if (creature instanceof Predator) {
+            return !(entity instanceof Barrier || entity instanceof Cheese || entity instanceof Predator);
+
+        } else if (creature instanceof Herbivore) {
+            return !(entity instanceof Barrier || entity instanceof Predator || entity instanceof Herbivore);
+        } else return false;
+
     }
 }

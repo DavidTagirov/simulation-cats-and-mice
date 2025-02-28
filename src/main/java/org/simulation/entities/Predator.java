@@ -15,11 +15,6 @@ public class Predator extends Creature {
 
     @Override
     public void hunting(World world) {
-        if (health <= 0) {
-            System.out.println("Кот умер от голода");
-            return;
-        }
-
         PathFinder pathFinder = new PathFinder(world);
         Coordinates nearestHerbivore = pathFinder.getNearestTarget(pathFinder.findTargets("Herbivore"), this);
 
@@ -28,7 +23,7 @@ public class Predator extends Creature {
             return;
         }
 
-        List<Coordinates> path = pathFinder.findPath(coordinates, nearestHerbivore);
+        List<Coordinates> path = pathFinder.findPath(coordinates, nearestHerbivore, this);
 
         if (path.isEmpty()) {
             System.out.println("Путь к мышке заблокирован");
@@ -47,8 +42,8 @@ public class Predator extends Creature {
 
         this.health -= 10;
 
-        if (this.health <= 0) {
-            System.out.println("Кот умер от голода!");
+        if (this.health == 0) {
+            System.out.println("Кот умер от голода");
             world.setEntities(coordinates, Floor.builder().build());
         } else if (nextEntity instanceof Herbivore herbivore) {
             this.health = 100;

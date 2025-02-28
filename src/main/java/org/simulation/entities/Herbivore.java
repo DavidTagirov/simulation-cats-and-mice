@@ -25,7 +25,7 @@ public class Herbivore extends Creature {
             return;
         }
 
-        List<Coordinates> path = pathFinder.findPath(coordinates, nearestCheese);
+        List<Coordinates> path = pathFinder.findPath(coordinates, nearestCheese, this);
 
         if (path.isEmpty()) {
             System.out.println("Путь к сыру заблокирован");
@@ -42,14 +42,14 @@ public class Herbivore extends Creature {
     protected void makeMove(World world, Coordinates newPosition) {
         var nextEntity = world.getEntities().get(newPosition);
 
-        if (nextEntity instanceof Predator predator) {
+        /*f (nextEntity instanceof Predator predator) {
             this.health -= predator.getStrange();
             if (this.health <= 0) {
                 System.out.println("Мышь была съедена!");
                 world.setEntities(coordinates, Floor.builder().build());
                 return;
             }
-        }
+        }*/
 
         if (nextEntity instanceof Floor) {
             world.setEntities(coordinates, Floor.builder().build());
@@ -62,7 +62,7 @@ public class Herbivore extends Creature {
             coordinates = newPosition;
             world.setEntities(coordinates, this);
             health = 100;
-            System.out.println("Мышь съела сыр!");
+            System.out.println("Мышь съела сыр");
         }
     }
 }
