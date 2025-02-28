@@ -31,12 +31,12 @@ public class World {
                 if (randomNumber <= 3) {
                     setEntities(coordinates, Cheese.builder().build());
                 } else if (randomNumber <= 6) {
-                    setEntities(coordinates, Herbivore.builder()
+                    setEntities(coordinates, Mouse.builder()
                             .speed(1)
                             .health(100)
                             .build());
                 } else if (randomNumber <= 9) {
-                    setEntities(coordinates, Predator.builder()
+                    setEntities(coordinates, Cat.builder()
                             .speed(2)
                             .health(100)
                             .strange(50)
@@ -56,17 +56,17 @@ public class World {
         this.x = x;
         this.y = y;
 
-        setEntities(new Coordinates(5, 5), Predator.builder()
+        setEntities(new Coordinates(5, 5), Cat.builder()
                 .speed(1)
                 .health(100)
                 .strange(50)
                 .build());
 
-        setEntities(new Coordinates(0, 0), Herbivore.builder()
+        setEntities(new Coordinates(0, 0), Mouse.builder()
                 .speed(1)
                 .health(100)
                 .build());
-        setEntities(new Coordinates(9, 9), Herbivore.builder()
+        setEntities(new Coordinates(9, 9), Mouse.builder()
                 .speed(1)
                 .health(100)
                 .build());
@@ -97,13 +97,13 @@ public class World {
         this.x = x;
         this.y = y;
 
-        setEntities(new Coordinates(7, 7), Predator.builder()
+        setEntities(new Coordinates(7, 7), Cat.builder()
                 .speed(1)
                 .health(100)
                 .strange(50)
                 .build());
 
-        setEntities(new Coordinates(0, 0), Herbivore.builder()
+        setEntities(new Coordinates(0, 0), Mouse.builder()
                 .speed(1)
                 .health(100)
                 .build());
@@ -154,12 +154,12 @@ public class World {
                 if (getEntities().get(coordinates) instanceof Floor && randomNumber <= 3) {
                     setEntities(coordinates, Cheese.builder().build());
                 } else if (getEntities().get(coordinates) instanceof Floor && randomNumber <= 6) {
-                    setEntities(coordinates, Herbivore.builder()
+                    setEntities(coordinates, Mouse.builder()
                             .speed(1)
                             .health(100)
                             .build());
                 } else if (getEntities().get(coordinates) instanceof Floor && randomNumber <= 8) {
-                    setEntities(coordinates, Predator.builder()
+                    setEntities(coordinates, Cat.builder()
                             .speed(1)
                             .health(100)
                             .strange(50)

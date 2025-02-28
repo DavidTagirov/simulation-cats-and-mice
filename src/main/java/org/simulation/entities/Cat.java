@@ -10,20 +10,20 @@ import java.util.List;
 
 @Getter
 @SuperBuilder
-public class Predator extends Creature {
+public class Cat extends Creature {
     private final Integer strange;
 
     @Override
     public void hunting(World world) {
         PathFinder pathFinder = new PathFinder(world);
-        Coordinates nearestHerbivore = pathFinder.getNearestTarget(pathFinder.findTargets("Herbivore"), this);
+        Coordinates nearestMouse = pathFinder.getNearestTarget(pathFinder.findTargets("Mouse"), this);
 
-        if (nearestHerbivore == null) {
+        if (nearestMouse == null) {
             System.out.println("Мышь не найдена — кот не двигается");
             return;
         }
 
-        List<Coordinates> path = pathFinder.findPath(coordinates, nearestHerbivore, this);
+        List<Coordinates> path = pathFinder.findPath(coordinates, nearestMouse, this);
 
         if (path.isEmpty()) {
             System.out.println("Путь к мышке заблокирован");
@@ -45,13 +45,13 @@ public class Predator extends Creature {
         if (this.health == 0) {
             System.out.println("Кот умер от голода");
             world.setEntities(coordinates, Floor.builder().build());
-        } else if (nextEntity instanceof Herbivore herbivore) {
+        } else if (nextEntity instanceof Mouse mouse) {
             this.health = 100;
-            herbivore.health -= strange;
+            mouse.health -= strange;
             System.out.println("Кот поел");
 
-            if (herbivore.health < strange) {
-                herbivore.health = 0;
+            if (mouse.health < strange) {
+                mouse.health = 0;
                 world.setEntities(coordinates, Floor.builder().build());
                 coordinates = newPosition;
                 world.setEntities(coordinates, this);

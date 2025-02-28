@@ -85,11 +85,11 @@ public class PathFinder {
 
         var entity = world.getEntities().get(coordinates);
 
-        if (creature instanceof Predator) {
-            return !(entity instanceof Barrier || entity instanceof Cheese || entity instanceof Predator);
+        if (creature instanceof Cat) {
+            return !(entity instanceof Barrier || entity instanceof Cheese || entity instanceof Cat);
 
-        } else if (creature instanceof Herbivore) {
-            return !(entity instanceof Barrier || entity instanceof Predator || entity instanceof Herbivore);
+        } else if (creature instanceof Mouse) {
+            return !(entity instanceof Barrier || entity instanceof Cat || entity instanceof Mouse);
         } else return false;
 
     }

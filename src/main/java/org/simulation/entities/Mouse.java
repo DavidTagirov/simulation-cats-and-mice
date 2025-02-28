@@ -8,7 +8,7 @@ import org.simulation.World;
 import java.util.List;
 
 @SuperBuilder
-public class Herbivore extends Creature {
+public class Mouse extends Creature {
 
     @Override
     public void hunting(World world) {

@@ -22,8 +22,8 @@ public class Renderer extends JPanel {
 
     private void loadEmojis() {
         try {
-            emojiMap.put("Predator", loadImage("/icons/cat.png"));
-            emojiMap.put("Herbivore", loadImage("/icons/mouse.png"));
+            emojiMap.put("Cat", loadImage("/icons/cat.png"));
+            emojiMap.put("Mouse", loadImage("/icons/mouse.png"));
             emojiMap.put("Cheese", loadImage("/icons/cheese.png"));
             emojiMap.put("Barrier1", loadImage("/icons/tree1.png"));
             emojiMap.put("Barrier2", loadImage("/icons/brick.png"));
@@ -31,7 +31,7 @@ public class Renderer extends JPanel {
             emojiMap.put("Floor", loadImage("/icons/floor.png"));
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Не удалось загрузить изображения эмодзи!");
+            throw new RuntimeException("Не удалось загрузить изображения");
         }
     }
 
@@ -59,8 +59,8 @@ public class Renderer extends JPanel {
                 String nameOfEntity = world.getEntities().get(coords).getClass().getSimpleName();
 
                 BufferedImage emoji = switch (nameOfEntity) {
-                    case "Predator" -> emojiMap.get("Predator");
-                    case "Herbivore" -> emojiMap.get("Herbivore");
+                    case "Cat" -> emojiMap.get("Cat");
+                    case "Mouse" -> emojiMap.get("Mouse");
                     case "Cheese" -> emojiMap.get("Cheese");
                     case "Barrier" -> barrierIcons.getOrDefault(coords, emojiMap.get("Barrier1"));
                     case "Floor" -> emojiMap.get("Floor");
