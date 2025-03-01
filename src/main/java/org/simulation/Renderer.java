@@ -102,4 +102,8 @@ public class Renderer extends JPanel {
         moveCount = count;
         repaint();
     }
+
+    public JFrame getFrame() {
+        return (JFrame) SwingUtilities.getWindowAncestor(this);
+    }
 }

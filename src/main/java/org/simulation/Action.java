@@ -14,7 +14,6 @@ public class Action {
 
     public void turnAction(World world) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-
         List<Runnable> tasks = new ArrayList<>();
 
         for (int i = 0; i < world.getX(); i++) {
@@ -37,6 +36,6 @@ public class Action {
         }
 
         executorService.shutdown();
-        executorService.awaitTermination(1, TimeUnit.SECONDS);
+        executorService.awaitTermination(3, TimeUnit.SECONDS);
     }
 }

@@ -5,9 +5,9 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.simulation.Coordinates;
 
-@SuperBuilder
 @Setter
 @Getter
+@SuperBuilder
 public abstract class Entity {
     protected Coordinates coordinates;
 }

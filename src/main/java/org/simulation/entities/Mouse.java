@@ -42,15 +42,6 @@ public class Mouse extends Creature {
     protected void makeMove(World world, Coordinates newPosition) {
         var nextEntity = world.getEntities().get(newPosition);
 
-        /*f (nextEntity instanceof Predator predator) {
-            this.health -= predator.getStrange();
-            if (this.health <= 0) {
-                System.out.println("Мышь была съедена!");
-                world.setEntities(coordinates, Floor.builder().build());
-                return;
-            }
-        }*/
-
         if (nextEntity instanceof Floor) {
             world.setEntities(coordinates, Floor.builder().build());
             coordinates = newPosition;

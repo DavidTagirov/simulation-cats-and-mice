@@ -91,6 +91,5 @@ public class PathFinder {
         } else if (creature instanceof Mouse) {
             return !(entity instanceof Barrier || entity instanceof Cat || entity instanceof Mouse);
         } else return false;
-
     }
 }
