@@ -34,15 +34,15 @@
 1. Клонируйте репозиторий:
 
    ```bash
-   git clone https://github.com/your-username/cat-mouse-simulation.git
-   cd cat-mouse-simulation
+   git clone https://github.com/DavidTagirov/simulation-cats-and-mice.git
+   cd simulation-cats-and-mice
    ```
 
 2. Скомпилируйте и запустите проект:
 
    ```bash
    mvn clean package
-   java -jar target/cat-mouse-simulation.jar
+   java -jar target/simulation-cats-and-mice.jar
    ```
 
    Или напрямую через `javac`:
